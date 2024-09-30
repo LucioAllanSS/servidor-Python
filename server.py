@@ -42,28 +42,39 @@ def message(user_message):
 
 class MyHandler(BaseHTTPRequestHandler):
     def do_POST(self):
-        content_length = int(self.headers['Content-Length'])
-        post_data = self.rfile.read(content_length)
-        data = json.loads(post_data)
+        try:
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            data = json.loads(post_data)
 
-        # Aquí puedes procesar los datos recibidos
-        print("Datos recibidos:", data)
+            # Aquí puedes procesar los datos recibidos
+            print("Datos recibidos:", data)
 
-        # Llamar a la función message y obtener la respuesta
-        response_message = message(data["massage"])
+            # Llamar a la función message y obtener la respuesta
+            response_message = message(data["message"])
 
-        # Imprimir la respuesta antes de enviarla
-        print("Respuesta generada:", response_message)
+            # Imprimir la respuesta antes de enviarla
+            print("Respuesta generada:", response_message)
 
-        # Responder al cliente
-        self.send_response(200)
-        self.send_header('Content-type', 'application/json')
-        response = response_message
-        response_json = json.dumps(response)
-        self.send_header('Content-Length', str(len(response_json)))
-        self.end_headers()
-        print("Respuesta final enviada:", response)  # Añadir esta línea para depuración
-        self.wfile.write(response_json.encode())
+            # Responder al cliente
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+            self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+            response_json = json.dumps({"response": response_message})
+            self.send_header('Content-Length', str(len(response_json)))
+            self.end_headers()
+            print("Respuesta final enviada:", response_json)  # Añadir esta línea para depuración
+            self.wfile.write(response_json.encode())
+        except Exception as e:
+            print(f"Error en do_POST: {e}")
+            self.send_response(500)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            error_message = json.dumps({"error": str(e)})
+            self.wfile.write(error_message.encode())
+
 
     
     def do_GET(self):
