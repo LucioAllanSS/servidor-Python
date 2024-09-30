@@ -74,7 +74,7 @@ class MyHandler(BaseHTTPRequestHandler):
             data = json.load(file)
             self.wfile.write(json.dumps(data).encode())
 
-def run(server_class=HTTPServer, handler_class=MyHandler, port=8000):
+def run(server_class=HTTPServer, handler_class=MyHandler, port=80):
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     print(f'Sirviendo en el puerto {port}')
