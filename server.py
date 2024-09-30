@@ -11,7 +11,7 @@ llm = Llama.from_pretrained(
 memory = [
     {
         "role": "system",
-        "content": "selecciona la respuesta ",
+        "content": "responde de manera concisa y clara",
     }
 ]
 
