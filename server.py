@@ -4,7 +4,7 @@ from llama_cpp import Llama
 
 llm = Llama.from_pretrained(
     repo_id="bartowski/Llama-3.2-1B-Instruct-GGUF",
-    filename="Llama-3.2-1B-Instruct-IQ3_M.gguf",
+    filename="Llama-3.2-1B-Instruct-Q8_0.gguf",
 )
 
 # Crear la respuesta del chat
