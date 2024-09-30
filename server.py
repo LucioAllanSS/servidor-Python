@@ -3,8 +3,8 @@ import json
 from llama_cpp import Llama
 
 llm = Llama.from_pretrained(
-    repo_id="bartowski/Llama-3.2-1B-Instruct-GGUF",
-    filename="Llama-3.2-1B-Instruct-Q8_0.gguf",
+    repo_id="bartowski/Llama-3.2-3B-Instruct-GGUF",
+    filename="Llama-3.2-3B-Instruct-IQ3_M.gguf",
 )
 
 # Crear la respuesta del chat
